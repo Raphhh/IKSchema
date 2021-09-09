@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<xs:schema 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="https://github.com/Raphhh/IKSchema"
+	xmlns="https://github.com/Raphhh/IKSchema"
+	elementFormDefault="qualified">
+
+	<xs:element name="ik">
+	</xs:element> 
+
+</xs:schema> 

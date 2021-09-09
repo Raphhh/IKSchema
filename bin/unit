@@ -1,0 +1,55 @@
+#!/bin/bash
+
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+BASE_DIR="$SCRIPT_DIR/.."
+TEST_DIR="$BASE_DIR/tests"
+FIXTURES_DIR="$TEST_DIR/__fixtures__"
+XSD_FILE="$BASE_DIR/ik.xsd"
+
+output="\n"
+error_type=0
+
+assertTrue() {
+  if eval "[[ $1 ]]"
+    then
+      echo -n "."
+    else
+      echo -n "F"
+      output="$output\n$2"
+      error_type=1
+    fi
+}
+
+assertValidLastCommand() {
+  assertTrue "$? -eq 0" "$1"
+}
+
+assertNotValidLastCommand() {
+  assertTrue "$? -ne 0" "$1"
+}
+
+assertValidXml() {
+  assertValidLastCommand "$(xmllint --noout --schema "$XSD_FILE" "$FIXTURES_DIR/$1" 2>&1)"
+}
+
+assertNotValidXml() {
+  assertNotValidLastCommand "$(xmllint --noout --schema "$XSD_FILE" "$FIXTURES_DIR/$1" 2>&1)"
+}
+
+###### TESTS #####
+
+source "$TEST_DIR/tests.sh"
+
+
+###### RUN #####
+
+for arg in $(declare -F)
+do
+  if [[ $arg == test* ]]
+    then
+	    eval "$arg"
+	fi
+done
+
+echo -e "$output"
+exit $error_type
