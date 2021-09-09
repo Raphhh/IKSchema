@@ -2,9 +2,9 @@
 
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 BASE_DIR="$SCRIPT_DIR/.."
+BIN_DIR="$BASE_DIR/bin"
 TEST_DIR="$BASE_DIR/tests"
 FIXTURES_DIR="$TEST_DIR/__fixtures__"
-XSD_FILE="$BASE_DIR/ik.xsd"
 
 output="\n"
 error_type=0
@@ -29,11 +29,11 @@ assertNotValidLastCommand() {
 }
 
 assertValidXml() {
-  assertValidLastCommand "$(xmllint --noout --schema "$XSD_FILE" "$FIXTURES_DIR/$1" 2>&1)"
+  assertValidLastCommand "$("$BIN_DIR"/validate "$FIXTURES_DIR/$1" 2>&1)"
 }
 
 assertNotValidXml() {
-  assertNotValidLastCommand "$(xmllint --noout --schema "$XSD_FILE" "$FIXTURES_DIR/$1" 2>&1)"
+  assertNotValidLastCommand "$("$BIN_DIR"/validate "$FIXTURES_DIR/$1" 2>&1)"
 }
 
 ###### TESTS #####

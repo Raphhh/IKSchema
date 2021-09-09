@@ -10,18 +10,22 @@ Example set in the file `./example.xml`.
 
 ## Dev
 
-### Testing
-
 Install `libxml2-utils` as dependency to be able to use the command `xmllint` (see http://xmlsoft.org/xmllint.html).
 
-Run the tests:
+### Validating an XML file
+
+ ```shell
+ $ bin/validate my_file.xml
+ ```
+
+### Testing
 
  ```shell
  $ bin/unit
  ```
 
-## Documentation
 
+## Documentation
 
 ### Elements
  
