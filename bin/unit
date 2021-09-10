@@ -6,8 +6,11 @@ BIN_DIR="$BASE_DIR/bin"
 TEST_DIR="$BASE_DIR/tests"
 FIXTURES_DIR="$TEST_DIR/__fixtures__"
 
-output="\n"
+output=""
+current_test_name=""
 error_type=0
+number_of_tests=0
+number_of_fails=0
 
 assertTrue() {
   if eval "[[ $1 ]]"
@@ -15,9 +18,11 @@ assertTrue() {
       echo -n "."
     else
       echo -n "F"
-      output="$output\n$2"
       error_type=1
+      ((number_of_fails++))
+      output="$output\n#$number_of_fails $current_test_name\n$2\n"
     fi
+  ((number_of_tests++))
 }
 
 assertValidLastCommand() {
@@ -47,9 +52,32 @@ for arg in $(declare -F)
 do
   if [[ $arg == test* ]]
     then
+      current_test_name="$arg"
 	    eval "$arg"
 	fi
 done
 
-echo -e "$output"
+
+###### DISPLAY #####
+
+if [[ $error_type == 0 ]]
+  then
+    result_resume='OK'
+  else
+    result_resume='KO'
+fi
+
+ok_tests=$(($number_of_tests-$number_of_fails))
+result_resume="$((($ok_tests*100/$number_of_tests)))%"
+
+echo -e "\nResult: $result_resume (F:$number_of_fails/$number_of_tests)"
+
+if [[ $error_type -ne 0 ]]
+  then
+    echo -e "$output"
+fi
+
+
+###### EXIT CODE #####
+
 exit $error_type
