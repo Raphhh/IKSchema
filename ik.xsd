@@ -6,6 +6,24 @@
 	elementFormDefault="qualified">
 
 	<xs:element name="ik">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="meta">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="version" type="xs:token" minOccurs="0" maxOccurs="1"/>
+							<xs:element name="date" type="xs:date" minOccurs="0" maxOccurs="1"/>
+							<xs:element name="reference" type="xs:anyURI" minOccurs="1" maxOccurs="1"/>
+							<xs:element name="language" type="xs:language" minOccurs="1" maxOccurs="1"/>
+							<xs:element name="title" type="xs:normalizedString" minOccurs="1" maxOccurs="1"/>
+							<xs:element name="author" type="xs:normalizedString" minOccurs="0" maxOccurs="unbounded"/>
+							<xs:element name="description" type="xs:normalizedString" minOccurs="0" maxOccurs="1"/>
+							<xs:element name="image" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
 	</xs:element> 
 
 </xs:schema> 

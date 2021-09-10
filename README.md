@@ -43,4 +43,16 @@ Root element of the document, specifying the current IK schema.
 	
 </ik>
 ```
- 	
+
+#### `meta`
+
+Indication about ik context:
+
+    - version
+    - date (ISO 8601)
+    - reference (URI) (required)
+    - language (RFC 1766) (required)
+    - title (required)
+    - authors
+    - description
+    - image

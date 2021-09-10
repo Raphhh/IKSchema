@@ -2,5 +2,11 @@
 
 testIk() {
   assertNotValidXml "empty.xml"
-  assertValidXml "1.xml"
+  assertNotValidXml "ikEmpty.xml"
+}
+
+testMeta() {
+  assertNotValidXml "metaEmpty.xml"
+  assertValidXml "metaRequired.xml"
+  assertValidXml "metaAll.xml"
 }
