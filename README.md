@@ -56,3 +56,22 @@ Indication about ik context:
     - authors
     - description
     - image
+
+#### `glossary`
+
+Glossary with definitions of specific terms. Each term must be unique. Refer to the term with the element `term`.
+
+Example:
+
+```xml
+<glossary>
+    <definition term="fooID">the foo definition</definition>
+</glossary>
+```
+```xml
+<taxons>
+    <taxon>
+        <description>something about <term ref="fooID">foo term</term></description>
+    </taxon>
+</taxons>
+```

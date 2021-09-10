@@ -3,11 +3,13 @@
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	targetNamespace="https://github.com/Raphhh/IKSchema"
 	xmlns="https://github.com/Raphhh/IKSchema"
+	xmlns:xsik="https://github.com/Raphhh/IKSchema"
 	elementFormDefault="qualified">
 
 	<xs:element name="ik">
 		<xs:complexType>
 			<xs:sequence>
+
 				<xs:element name="meta">
 					<xs:complexType>
 						<xs:sequence>
@@ -22,6 +24,27 @@
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
+
+				<xs:element name="glossary">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="definition" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:simpleContent>
+										<xs:extension base="xs:normalizedString">
+											<xs:attribute name="term" use="required" type="xs:token"/>
+										</xs:extension>
+									</xs:simpleContent>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+					<xs:unique name="glossaryTermUnique">
+						<xs:selector xpath="xsik:definition"/>
+						<xs:field xpath="@term"/>
+					</xs:unique>
+				</xs:element>
+
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element> 
