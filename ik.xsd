@@ -6,8 +6,42 @@
 	xmlns:xsik="https://github.com/Raphhh/IKSchema"
 	elementFormDefault="qualified">
 
+	<xs:simpleType name="token">
+		<xs:restriction base="xs:token">
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="textType" mixed="true">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="i" type="xs:normalizedString" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="b" type="xs:normalizedString" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="link" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:normalizedString">
+							<xs:attribute name="uri" use="required" type="xs:anyURI"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="term" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:normalizedString">
+							<xs:attribute name="ref" use="required" type="token"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+
+
+
 	<xs:element name="ik">
 		<xs:complexType>
+
 			<xs:sequence>
 
 				<xs:element name="meta">
@@ -19,7 +53,7 @@
 							<xs:element name="language" type="xs:language" minOccurs="1" maxOccurs="1"/>
 							<xs:element name="title" type="xs:normalizedString" minOccurs="1" maxOccurs="1"/>
 							<xs:element name="author" type="xs:normalizedString" minOccurs="0" maxOccurs="unbounded"/>
-							<xs:element name="description" type="xs:normalizedString" minOccurs="0" maxOccurs="1"/>
+							<xs:element name="description" type="textType" minOccurs="0" maxOccurs="1"/>
 							<xs:element name="image" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
 						</xs:sequence>
 					</xs:complexType>
@@ -30,11 +64,11 @@
 						<xs:sequence>
 							<xs:element name="definition" minOccurs="0" maxOccurs="unbounded">
 								<xs:complexType>
-									<xs:simpleContent>
-										<xs:extension base="xs:normalizedString">
-											<xs:attribute name="term" use="required" type="xs:token"/>
+									<xs:complexContent>
+										<xs:extension base="textType">
+											<xs:attribute name="term" use="required" type="token"/>
 										</xs:extension>
-									</xs:simpleContent>
+									</xs:complexContent>
 								</xs:complexType>
 							</xs:element>
 						</xs:sequence>
@@ -47,6 +81,10 @@
 
 			</xs:sequence>
 		</xs:complexType>
+		<xs:keyref name="termRef" refer="xsik:glossaryTermUnique">
+			<xs:selector xpath=".//xsik:term"/>
+			<xs:field xpath="@ref"/>
+		</xs:keyref>
 	</xs:element> 
 
 </xs:schema> 

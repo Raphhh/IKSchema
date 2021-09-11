@@ -17,3 +17,8 @@ testGlossary() {
   assertNotValidXml "glossaryTermNotUnique.xml"
   assertValidXml "glossaryAll.xml"
 }
+
+testTextType() {
+  assertNotValidXml "textTypeWithoutGlossaryTerm.xml"
+  assertValidXml "textTypeWithAll.xml"
+}

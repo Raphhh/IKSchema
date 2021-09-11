@@ -7,9 +7,15 @@
         <reference>https://github.com/Raphhh/ik</reference>
         <language>en-GB</language>
         <title>title value</title>
+        <description>
+            description of the <b>ik</b>
+            with some <i>latin words</i>
+            or <i>stranger words</i>,
+            following by <term ref="term_1">a specific term</term>
+            and <link uri="uri">a link</link>
+        </description>
     </meta>
     <glossary>
-        <definition term="ik">identification key</definition>
-        <definition term="ik 2">identification key 2 with <term ref="ik">a ik reference</term></definition>
+        <definition term="term_1"></definition>
     </glossary>
 </ik>
