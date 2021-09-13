@@ -3,11 +3,15 @@
         xmlns="https://github.com/Raphhh/IKSchema"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="https://github.com/Raphhh/ik/ik.xsd">
-
     <meta>
         <reference>https://github.com/Raphhh/ik</reference>
         <language>en-GB</language>
         <title>title value</title>
     </meta>
-    <taxons></taxons>
+    <glossary></glossary>
+    <taxons>
+        <taxon type="class" id="taxon_1">
+            <scientificName>name</scientificName>
+        </taxon>
+    </taxons>
 </ik>

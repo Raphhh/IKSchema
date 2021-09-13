@@ -5,4 +5,5 @@
         xsi:schemaLocation="https://github.com/Raphhh/ik/ik.xsd">
 
     <glossary></glossary>
+    <taxons></taxons>
 </ik>

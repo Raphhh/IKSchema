@@ -71,7 +71,174 @@ Example:
 ```xml
 <taxons>
     <taxon>
+        ...
         <description>something about <term ref="fooID">foo term</term></description>
     </taxon>
 </taxons>
 ```
+
+#### `taxons`
+
+List of `taxon` elements.
+
+
+#### `taxon`
+
+Taxonomic unit.
+
+##### Attributes
+
+###### `type`
+
+Following the [nomenclature codes](https://en.wikipedia.org/wiki/Nomenclature_codes), a taxon has to be one of the following types:
+
+ - `species`
+ - `genus`
+ - `family`
+ - `order`
+ - `class`
+ - `phylum`
+ - `kingdom`
+ - `kingdom`
+ - `domain`
+
+For example:
+```xml
+<taxon id="leucanthemum_vulgare" type="species">
+    <scientificName>Leucanthemum vulgare</scientificName>
+</taxon>
+```
+
+###### `parent`
+
+Each taxon should refer to its parent taxon (by its parent `id`).
+For example, a species should refer to its genus and a genus to its family.
+
+For example:
+```xml
+<taxons>
+    <taxon id="asteraceae" type="family">
+        <scientificName>Asteraceae</scientificName>
+    </taxon>
+    <taxon id="leucanthemum" type="genus" parent="asteraceae">
+        <scientificName>Leucanthemum</scientificName>
+    </taxon>
+    <taxon id="leucanthemum_vulgare" type="species" parent="leucanthemum">
+        <scientificName>Leucanthemum vulgare</scientificName>
+    </taxon>
+</taxons>
+```
+
+##### Children elements
+
+###### `taxid`
+
+Optional. For species only. See https://en.wikipedia.org/wiki/Species#Identification_codes.
+
+###### Names
+
+At least, one (and only one) `scientificName`.
+Other scientific names must be `synonymName` elements.
+Other non-scientific names, like for example translations in current language, are `commonName` elements.
+
+For example:
+```xml
+<taxon id="asteraceae" type="family">
+    <scientificName>Asteraceae</scientificName>
+    <synonymName>Compositae</synonymName>
+    <commonName>Sunflower family</commonName>
+</taxon>
+```
+
+###### `description`
+
+Optional. For all. (For species, see https://en.wikipedia.org/wiki/Species_description.) 
+
+ - `source` and `uri` (attributes)
+
+Could refer to its source by the optional attributes `source` (for the name of the source) and `uri` (for the uri of the source).
+
+For example:
+```xml
+<taxon id="leucanthemum_vulgare" type="species">
+    <scientificName>Leucanthemum vulgare</scientificName>
+    <description source="Lamarque, Flore françoise (1778)">Sa tige est haute ...</description>
+</taxon>
+```
+
+May be empty and refers only to its source.
+
+For example:
+```xml
+<taxon id="asteraceae" type="family">
+    <scientificName>Asteraceae</scientificName>
+    <description source="Wikipedia" uri="https://en.wikipedia.org/wiki/Asteraceae" />
+</taxon>
+```
+
+ - `term` (element)
+
+Could refer to glossary terms. See `glossary`.
+
+ - `i` (element)
+
+See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/i. For example, latin expressions should be wrapped inside `i` element.
+
+
+ - `b` (element)
+
+See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/b.
+
+
+ - `link` (element)
+
+Reference to an external link.
+
+
+###### `indication` (element)
+
+For example:
+```xml
+<taxon id="leucanthemum_vulgare" type="species">
+    <scientificName>Leucanthemum vulgare</scientificName>
+    <indication name="habitat">Europe</indication>
+</taxon>
+```
+
+
+###### `period` (element)
+
+For example:
+```xml
+<taxon id="leucanthemum_vulgare" type="species">
+    <scientificName>Leucanthemum vulgare</scientificName>
+    <!-- first bloom half May and June -->
+    <period name="bloom" unit="month">
+        <from>5.5</from>
+        <to>6</to>
+    </period>
+    <!-- second bloom September -->
+    <period name="bloom" unit="month">
+        <from>9</from>
+        <to>9</to>
+    </period>
+</taxon>
+```
+
+###### `range` (element)
+
+For example:
+```xml
+<taxon id="leucanthemum_vulgare" type="species">
+    <scientificName>Leucanthemum vulgare</scientificName>
+    <range name="capitulum size" unit="mm">
+        <from>10</from>
+        <to>20</to>
+    </range>
+</taxon>
+```
+
+###### `image` (element)
+
+Illustration of the taxon.
+

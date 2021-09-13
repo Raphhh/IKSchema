@@ -12,4 +12,5 @@
         <definition term="ik">identification key</definition>
         <definition term="ik 2">identification key 2 with <term ref="ik">a ik reference</term></definition>
     </glossary>
+    <taxons></taxons>
 </ik>

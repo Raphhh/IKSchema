@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<ik
+        xmlns="https://github.com/Raphhh/IKSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://github.com/Raphhh/ik/ik.xsd">
+    <meta>
+        <reference>https://github.com/Raphhh/ik</reference>
+        <language>en-GB</language>
+        <title>title value</title>
+    </meta>
+    <glossary>
+        <definition term="term_1"></definition>
+    </glossary>
+    <taxons>
+        <taxon type="class" id="taxon_1">
+            <taxid>taxid</taxid>
+            <scientificName nomenclature="ICZN">lorem IPSUM</scientificName>
+            <synonymName>lorem 2</synonymName>
+            <synonymName>lorem 3</synonymName>
+            <commonName>name 1</commonName>
+            <commonName>name 2</commonName>
+            <description>
+                description of the <b>taxon</b>
+                with some <i>latin words</i>
+                or <i>stranger words</i>,
+                following by <term ref="term_1">a specific term</term>
+                and <link uri="uri">a link</link>
+            </description>
+            <description source="fabulous book">
+                description 2
+            </description>
+            <description uri="https://en.wikipedia.org/wiki/Asteraceae" />
+            <indication name="color">blue</indication>
+            <indication name="habitat">Europe</indication>
+            <period name="bloom" unit="month">
+                <from>6</from>
+                <to>8.5</to>
+            </period>
+            <period name="bloom" unit="month">
+                <from>9</from>
+                <to>9</to>
+            </period>
+            <range name="size">
+                <from>10.5</from>
+                <to>15.5</to>
+            </range>
+            <range name="size" unit="cm">
+                <from>10</from>
+                <to>15</to>
+            </range>
+        </taxon>
+        <taxon type="class" id="taxon_2" parent="taxon_1">
+            <scientificName>parent</scientificName>
+        </taxon>
+    </taxons>
+</ik>

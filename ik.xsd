@@ -37,7 +37,44 @@
 		</xs:choice>
 	</xs:complexType>
 
+	<xs:simpleType name="taxonType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">https://en.wikipedia.org/wiki/Nomenclature_codes</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="domain"/>
+			<xs:enumeration value="kingdom"/>
+			<xs:enumeration value="phylum"/>
+			<xs:enumeration value="class"/>
+			<xs:enumeration value="order"/>
+			<xs:enumeration value="family"/>
+			<xs:enumeration value="genus"/>
+			<xs:enumeration value="species"/>
+		</xs:restriction>
+	</xs:simpleType>
 
+	<xs:complexType name="scientificNameType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">
+				For botanic, see https://en.wikipedia.org/wiki/Botanical_nomenclature
+			</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="token">
+				<xs:attribute name="nomenclature" type="nomenclatureType"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:simpleType name="nomenclatureType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">https://en.wikipedia.org/wiki/Binomial_nomenclature</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:normalizedString">
+			<xs:enumeration value="ICZN"/>
+			<xs:enumeration value="ICNafp"/>
+		</xs:restriction>
+	</xs:simpleType>
 
 	<xs:element name="ik">
 		<xs:complexType>
@@ -79,8 +116,93 @@
 					</xs:unique>
 				</xs:element>
 
+				<xs:element name="taxons">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="taxon" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="taxid" type="token" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation xml:lang="en">
+													https://en.wikipedia.org/wiki/Species#Identification_codes
+												</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="scientificName" type="scientificNameType" minOccurs="1" maxOccurs="1"/>
+										<xs:element name="synonymName" type="scientificNameType" minOccurs="0" maxOccurs="unbounded" />
+										<xs:element name="commonName" type="xs:normalizedString" minOccurs="0" maxOccurs="unbounded"/>
+										<xs:element name="description" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation xml:lang="en">
+													https://en.wikipedia.org/wiki/Species_description
+												</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:complexContent>
+													<xs:extension base="textType">
+														<xs:attribute name="source" type="xs:normalizedString"/>
+														<xs:attribute name="uri" type="xs:anyURI"/>
+													</xs:extension>
+												</xs:complexContent>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="indication" minOccurs="0" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:simpleContent>
+													<xs:extension base="xs:normalizedString">
+														<xs:attribute name="name" use="required" type="xs:normalizedString"/>
+													</xs:extension>
+												</xs:simpleContent>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="period" minOccurs="0" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="from" type="xs:decimal"/>
+													<xs:element name="to" type="xs:decimal"/>
+												</xs:sequence>
+												<xs:attribute name="name" use="required" type="xs:normalizedString"/>
+												<xs:attribute name="unit" type="xs:normalizedString"/>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="range" minOccurs="0" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="from" type="xs:decimal"/>
+													<xs:element name="to" type="xs:decimal"/>
+												</xs:sequence>
+												<xs:attribute name="name" use="required" type="xs:normalizedString"/>
+												<xs:attribute name="unit" type="xs:normalizedString"/>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="image" type="xs:anyURI" minOccurs="0" maxOccurs="unbounded"/>
+									</xs:sequence>
+									<xs:attribute name="type" use="required" type="taxonType"/>
+									<xs:attribute name="id" use="required" type="token"/>
+									<xs:attribute name="parent" type="token"/>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+					<xs:unique name="taxonScientifiqueNameUnique">
+						<xs:selector xpath="xsik:taxon/xsik:scientificName"/>
+						<xs:field xpath="."/>
+					</xs:unique>
+					<xs:unique name="taxonIdUnique">
+						<xs:selector xpath="xsik:taxon"/>
+						<xs:field xpath="@id"/>
+					</xs:unique>
+					<!-- Note that, technically, a taxon could refer to itself. It would be a meaningless loop. -->
+					<xs:keyref name="taxonParent" refer="xsik:taxonIdUnique">
+						<xs:selector xpath="xsik:taxon"/>
+						<xs:field xpath="@parent"/>
+					</xs:keyref>
+				</xs:element>
+
 			</xs:sequence>
 		</xs:complexType>
+		<!-- Note that, technically, a term could refer to itself. It would be a meaningless loop. -->
 		<xs:keyref name="termRef" refer="xsik:glossaryTermUnique">
 			<xs:selector xpath=".//xsik:term"/>
 			<xs:field xpath="@ref"/>
