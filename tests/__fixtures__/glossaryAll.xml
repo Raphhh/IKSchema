@@ -13,12 +13,13 @@
             <title>ik title</title>
             <definition>ik definition 1</definition>
             <definition>ik definition 2</definition>
-            <image>uri</image>
+            <image uri="uri">legend</image>
+            <image uri="uri">legend</image>
         </term>
         <term id="ik 2">
             <title>ik 2 title</title>
             <definition>identification key 2 with <term ref="ik">a ik reference</term></definition>
-            <image>uri</image>
+            <image uri="uri">legend</image>
         </term>
     </glossary>
     <taxons></taxons>

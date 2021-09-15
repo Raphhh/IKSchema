@@ -12,6 +12,14 @@
 		</xs:restriction>
 	</xs:simpleType>
 
+	<xs:complexType name="imageType" >
+		<xs:simpleContent>
+			<xs:extension base="xs:normalizedString">
+				<xs:attribute name="uri" type="xs:anyURI" use="required"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
 	<xs:complexType name="textType" mixed="true">
 		<xs:choice maxOccurs="unbounded">
 			<xs:element name="i" type="xs:normalizedString" minOccurs="0" maxOccurs="unbounded"/>
@@ -91,7 +99,7 @@
 							<xs:element name="title" type="xs:normalizedString" minOccurs="1" maxOccurs="1"/>
 							<xs:element name="author" type="xs:normalizedString" minOccurs="0" maxOccurs="unbounded"/>
 							<xs:element name="description" type="textType" minOccurs="0" maxOccurs="1"/>
-							<xs:element name="image" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
+							<xs:element name="image" type="imageType" minOccurs="0" maxOccurs="1"/>
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
@@ -104,7 +112,7 @@
 									<xs:sequence maxOccurs="unbounded">
 										<xs:element name="title" type="xs:normalizedString" minOccurs="1" maxOccurs="1"/>
 										<xs:element name="definition" type="textType" minOccurs="1" maxOccurs="unbounded"/>
-										<xs:element name="image" type="xs:anyURI" minOccurs="0" maxOccurs="unbounded"/>
+										<xs:element name="image" type="imageType" minOccurs="0" maxOccurs="unbounded"/>
 									</xs:sequence>
 									<xs:attribute name="id" use="required" type="token"/>
 								</xs:complexType>
@@ -177,7 +185,7 @@
 												<xs:attribute name="unit" type="xs:normalizedString"/>
 											</xs:complexType>
 										</xs:element>
-										<xs:element name="image" type="xs:anyURI" minOccurs="0" maxOccurs="unbounded"/>
+										<xs:element name="image" type="imageType" minOccurs="0" maxOccurs="unbounded"/>
 									</xs:sequence>
 									<xs:attribute name="type" use="required" type="taxonType"/>
 									<xs:attribute name="id" use="required" type="token"/>

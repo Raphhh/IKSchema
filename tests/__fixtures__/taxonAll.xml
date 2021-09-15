@@ -51,6 +51,8 @@
                 <from>10</from>
                 <to>15</to>
             </range>
+            <image uri="https://github.com/Raphhh/ik/image.png">legend</image>
+            <image uri="https://github.com/Raphhh/ik/image.png">legend</image>
         </taxon>
         <taxon type="class" id="taxon_2" parent="taxon_1">
             <scientificName>parent</scientificName>

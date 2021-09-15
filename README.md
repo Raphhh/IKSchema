@@ -70,8 +70,8 @@ Example:
         <definition>the foo definition 1</definition>
         <definition>the foo definition 2</definition>
         ...
-        <image>uri 1</image>
-        <image>uri 2</image>
+        <image uri="uri 1">image 1 legend</image>
+        <image uri="uri 2">image 2 legend</image>
         ...
     </term>
 </glossary>
@@ -249,4 +249,8 @@ For example:
 ###### `image` (element)
 
 Illustration of the taxon.
+```xml
+<image uri="uri">image legend</image>
+```
+
 
