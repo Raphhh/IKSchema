@@ -12,4 +12,18 @@
     <taxons>
         <taxon type="class" id="taxon_1"></taxon>
     </taxons>
+    <key>
+        <choice value="choice 1">
+            <question>question 1</question>
+            <result>
+                <taxon ref="taxon_1"/>
+            </result>
+        </choice>
+        <choice value="choice 1">
+            <question>question 2</question>
+            <result>
+                <taxon ref="taxon_1"/>
+            </result>
+        </choice>
+    </key>
 </ik>

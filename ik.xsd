@@ -84,9 +84,39 @@
 		</xs:restriction>
 	</xs:simpleType>
 
+	<xs:complexType name="keyType">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="choice" minOccurs="2" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="question" type="textType" minOccurs="1" maxOccurs="unbounded"/>
+						<xs:element name="image" type="imageType" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element name="result" minOccurs="1" maxOccurs="1">
+							<xs:complexType>
+								<xs:choice>
+									<xs:element name="key" type="keyType"/>
+									<xs:element name="taxon">
+										<xs:complexType>
+											<xs:simpleContent>
+												<xs:extension base="xs:normalizedString">
+													<xs:attribute name="ref" use="required" type="token"/>
+												</xs:extension>
+											</xs:simpleContent>
+										</xs:complexType>
+									</xs:element>
+								</xs:choice>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="value" type="xs:normalizedString" use="required"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+		<xs:attribute name="name" type="xs:normalizedString"/>
+	</xs:complexType>
+
 	<xs:element name="ik">
 		<xs:complexType>
-
 			<xs:sequence>
 
 				<xs:element name="meta">
@@ -209,11 +239,21 @@
 					</xs:keyref>
 				</xs:element>
 
+				<xs:element name="key" type="keyType"/>
+
 			</xs:sequence>
 		</xs:complexType>
+		<xs:unique name="choiceValueUnique">
+			<xs:selector xpath=".//xsik:choice"/>
+			<xs:field xpath="@value"/>
+		</xs:unique>
 		<!-- Note that, technically, a term could refer to itself. It would be a meaningless loop. -->
 		<xs:keyref name="termRef" refer="xsik:glossaryTermUnique">
 			<xs:selector xpath=".//xsik:term"/>
+			<xs:field xpath="@ref"/>
+		</xs:keyref>
+		<xs:keyref name="taxonRef" refer="xsik:taxonIdUnique">
+			<xs:selector xpath=".//xsik:taxon"/>
 			<xs:field xpath="@ref"/>
 		</xs:keyref>
 	</xs:element> 

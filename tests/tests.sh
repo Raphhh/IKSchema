@@ -36,3 +36,18 @@ testTaxons() {
   assertValidXml "taxonOnlyRequired.xml"
   assertValidXml "taxonAll.xml"
 }
+
+
+testKey() {
+  assertNotValidXml "ikWithoutKey.xml"
+  assertNotValidXml "keyEmpty.xml"
+  assertNotValidXml "keyWithoutTermMatch.xml"
+  assertNotValidXml "keyWithOnlyOneChoice.xml"
+  assertNotValidXml "keyWithoutQuestion.xml"
+  assertNotValidXml "keyWithoutResult.xml"
+  assertNotValidXml "keyWithEmptyResult.xml"
+  assertNotValidXml "keyWithIncorrectResult.xml"
+  assertNotValidXml "keyWithoutValue.xml"
+  assertNotValidXml "keyWithoutUniqueValue.xml"
+  assertValidXml "keyAll.xml"
+}

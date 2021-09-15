@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<ik
+        xmlns="https://github.com/Raphhh/IKSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://github.com/Raphhh/ik/ik.xsd">
+    <meta>
+        <reference>https://github.com/Raphhh/ik</reference>
+        <language>en-GB</language>
+        <title>title value</title>
+    </meta>
+    <glossary>
+        <term id="term_1">
+            <title>ik title</title>
+            <definition>ik definition 1</definition>
+        </term>
+    </glossary>
+    <taxons>
+        <taxon type="species" id="taxon_1">
+            <scientificName>taxon 1</scientificName>
+        </taxon>
+        <taxon type="species" id="taxon_2">
+            <scientificName>taxon 2</scientificName>
+        </taxon>
+    </taxons>
+    <key name="home">
+        <choice value="choice 1">
+            <question>
+                question of the <b>ik</b>
+                with some <i>latin words</i>
+                or <i>stranger words</i>,
+                following by <term ref="term_1">a specific term</term>
+                and <link uri="uri">a link</link>
+            </question>
+            <image uri="uri">image 1</image>
+            <image uri="uri">image 2</image>
+            <result>
+                <key name="branch 1">
+                    <choice value="choice 2">
+                        <question>question 3</question>
+                        <result>
+                            <taxon ref="taxon_1"/>
+                        </result>
+                    </choice>
+                    <choice value="choice 3">
+                        <question>question 4</question>
+                        <result>
+                            <taxon ref="taxon_2"/>
+                        </result>
+                    </choice>
+                    <choice value="choice 4">
+                        <question>question 5</question>
+                        <result>
+                            <taxon ref="taxon_2"/>
+                        </result>
+                    </choice>
+                </key>
+            </result>
+        </choice>
+        <choice value="choice 5">
+            <question>question 2</question>
+            <result>
+                <taxon ref="taxon_1"/>
+            </result>
+        </choice>
+    </key>
+</ik>

@@ -54,12 +54,14 @@ Indication about ik context:
     - language (RFC 1766) (required)
     - title (required)
     - authors
-    - description
+    - description (textType)
     - image
 
 #### `glossary`
 
-Glossary with definitions of specific terms. Each term must be unique. Refer to the term with the element `term`.
+Glossary with definitions of specific terms.
+Each term must be unique.
+Refer to a `term` from any `textType` with the element `term` (by its `id`).
 
 Example:
 
@@ -80,7 +82,7 @@ Example:
 <taxons>
     <taxon>
         ...
-        <description>something about <term ref="fooID">foo term</term></description>
+        <description>something about <term ref="fooID">foo</term></description>
     </taxon>
 </taxons>
 ```
@@ -92,13 +94,13 @@ List of `taxon` elements.
 
 #### `taxon`
 
-Taxonomic unit.
+Taxonomic entity.
 
 ##### Attributes
 
 ###### `type`
 
-Following the [nomenclature codes](https://en.wikipedia.org/wiki/Nomenclature_codes), a taxon has to be one of the following types:
+Following the [nomenclature codes](https://en.wikipedia.org/wiki/Nomenclature_codes), a `taxon` has to be one of the following types:
 
  - `species`
  - `genus`
@@ -119,7 +121,7 @@ For example:
 
 ###### `parent`
 
-Each taxon should refer to its parent taxon (by its parent `id`).
+Each `taxon` should refer to its parent taxon (by its parent `id`).
 For example, a species should refer to its genus and a genus to its family.
 
 For example:
@@ -160,9 +162,10 @@ For example:
 
 ###### `description`
 
-Optional. For all. (For species, see https://en.wikipedia.org/wiki/Species_description.) 
+Optional `textType`. For all. (For species, see https://en.wikipedia.org/wiki/Species_description.) 
 
- - `source` and `uri` (attributes)
+
+ - `source` and `uri`
 
 Could refer to its source by the optional attributes `source` (for the name of the source) and `uri` (for the uri of the source).
 
@@ -184,26 +187,8 @@ For example:
 </taxon>
 ```
 
- - `term` (element)
 
-Could refer to glossary terms. See `glossary`.
-
- - `i` (element)
-
-See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/i. For example, latin expressions should be wrapped inside `i` element.
-
-
- - `b` (element)
-
-See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/b.
-
-
- - `link` (element)
-
-Reference to an external link.
-
-
-###### `indication` (element)
+###### `indication`
 
 For example:
 ```xml
@@ -214,7 +199,7 @@ For example:
 ```
 
 
-###### `period` (element)
+###### `period`
 
 For example:
 ```xml
@@ -233,7 +218,7 @@ For example:
 </taxon>
 ```
 
-###### `range` (element)
+###### `range`
 
 For example:
 ```xml
@@ -246,7 +231,7 @@ For example:
 </taxon>
 ```
 
-###### `image` (element)
+###### `image`
 
 Illustration of the taxon.
 ```xml
@@ -254,3 +239,99 @@ Illustration of the taxon.
 ```
 
 
+#### `key`
+
+Contains the tree of choices to identify a taxon.
+
+For example:
+
+```xml
+<taxons>
+    <taxon type="species" id="taxon_1">
+        <scientificName>The happy and healthy taxon</scientificName>
+        <!-- The choices path to this taxon is "happy/healthy" -->
+    </taxon>
+    <taxon type="species" id="taxon_2">
+        <scientificName>The unhappy or tired taxon</scientificName>
+        <!-- The choices path to this taxon is "unhappy" or "happy/tired" -->
+    </taxon>
+</taxons>
+
+<key name="happiness level">
+    <choice value="happy">
+        <question>Does it look like happy?</question>
+        <result>
+            <key name="health level">
+                <choice value="healthy">
+                    <question>Does it look like healthy?</question>
+                    <result>
+                        <taxon ref="taxon_1"/>
+                    </result>
+                </choice>
+                <choice value="tired">
+                    <question>Does it look like tired?</question>
+                    <result>
+                        <taxon ref="taxon_2"/>
+                    </result>
+                </choice>
+            </key>
+        </result>
+    </choice>
+    <choice value="unhappy">
+        <question>Does it look like <b>un</b>happy?</question>
+        <result>
+            <taxon ref="taxon_2"/>
+        </result>
+    </choice>
+</key>
+```
+
+##### Children elements
+
+###### `choice`
+
+Define an alternative between at least two questions.
+Each `choice` must specify a `question` and a `result`.
+Attribute `value` determines a unique path through the tree.
+
+###### `question`
+
+A `textType` where is defined the question choice to contribute to the identification of the taxon.
+
+
+###### `result`
+
+Must be either a new `key` or a `taxon`.
+
+ - `key` is a new sub-branch of the tree.
+- `taxon` is the end of the tree. This means`taxon` must refer to a `taxon` (by its `id`) defined in `taxons`.
+
+###### `image`
+
+Illustration of the question.
+```xml
+<image uri="uri">image legend</image>
+```
+
+
+#### `textType`
+
+An element with mixed text and following elements:
+
+- `term`
+
+Could refer to glossary terms. See `glossary`.
+
+- `i`
+
+See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/i. For example, latin expressions should be wrapped inside `i` element.
+
+
+- `b`
+
+See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/b.
+
+
+- `link
+
+Reference to an external link.
