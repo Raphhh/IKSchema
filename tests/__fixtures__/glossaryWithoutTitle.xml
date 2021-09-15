@@ -7,18 +7,10 @@
         <reference>https://github.com/Raphhh/ik</reference>
         <language>en-GB</language>
         <title>title value</title>
-        <description>
-            description of the <b>ik</b>
-            with some <i>latin words</i>
-            or <i>stranger words</i>,
-            following by <term ref="term_1">a specific term</term>
-            and <link uri="uri">a link</link>
-        </description>
     </meta>
     <glossary>
-        <term id="term_1">
-            <title>ik title</title>
-            <definition>ik definition 1</definition>
+        <term id="ik">
+            <definition>ik definition 2</definition>
         </term>
     </glossary>
     <taxons></taxons>

@@ -9,8 +9,14 @@
         <title>title value</title>
     </meta>
     <glossary>
-        <definition term="ik">identification key</definition>
-        <definition term="ik">identification key</definition>
+        <term id="ik">
+            <title>ik title</title>
+            <definition>ik definition 1</definition>
+        </term>
+        <term id="ik">
+            <title>ik title</title>
+            <definition>ik definition 1</definition>
+        </term>
     </glossary>
     <taxons></taxons>
 </ik>

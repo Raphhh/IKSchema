@@ -65,7 +65,15 @@ Example:
 
 ```xml
 <glossary>
-    <definition term="fooID">the foo definition</definition>
+    <term id="fooID">
+        <title>foo term</title>
+        <definition>the foo definition 1</definition>
+        <definition>the foo definition 2</definition>
+        ...
+        <image>uri 1</image>
+        <image>uri 2</image>
+        ...
+    </term>
 </glossary>
 ```
 ```xml

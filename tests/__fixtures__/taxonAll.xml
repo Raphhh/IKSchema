@@ -9,7 +9,10 @@
         <title>title value</title>
     </meta>
     <glossary>
-        <definition term="term_1"></definition>
+        <term id="term_1">
+            <title>ik title</title>
+            <definition>ik definition 1</definition>
+        </term>
     </glossary>
     <taxons>
         <taxon type="class" id="taxon_1">

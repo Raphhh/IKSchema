@@ -14,6 +14,8 @@ testMeta() {
 
 testGlossary() {
   assertNotValidXml "ikWithoutGlossary.xml"
+  assertNotValidXml "glossaryWithoutDefinition.xml"
+  assertNotValidXml "glossaryWithoutTitle.xml"
   assertNotValidXml "glossaryTermNotUnique.xml"
   assertValidXml "glossaryAll.xml"
 }
