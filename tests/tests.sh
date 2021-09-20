@@ -5,6 +5,7 @@ testIk() {
   assertNotValidXml "ikEmpty.xml"
   assertNotValidXml "metaEmpty.xml"
   assertValidXml "onlyRequired.xml"
+  assertValidXml "../../example.xml"
 }
 
 testMeta() {

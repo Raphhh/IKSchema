@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<ik
+		xmlns="https://github.com/Raphhh/IKSchema"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="https://github.com/Raphhh/ik/ik.xsd">
+
+	<meta>
+		<version>1.0.3</version>
+		<date>2000-12-31</date>
+		<reference>https://github.com/Raphhh/ik</reference>
+		<language>en-GB</language>
+		<title>title value</title>
+		<author>author 1</author>
+		<author>author 2</author>
+		<description>description of the ik</description>
+		<image uri="https://github.com/Raphhh/ik/image.png">legend</image>
+	</meta>
+
+	<glossary>
+		<term id="happiness">
+			<title>Happiness</title>
+			<definition>The state of feeling or showing <term ref="pleasure">pleasure</term> or contentment.</definition>
+		</term>
+		<term id="pleasure">
+			<title>Pleasure</title>
+			<definition>A feeling of <term ref="happiness">happy satisfaction</term> and enjoyment.</definition>
+		</term>
+	</glossary>
+
+	<taxons>
+		<taxon type="family" id="family_1">
+			<scientificName>The ik family</scientificName>
+		</taxon>
+		<taxon type="species" id="taxon_1" parent="family_1">
+			<!-- The choices path to this taxon is "happy/healthy" -->
+			<scientificName>The happy and healthy taxon</scientificName>
+			<synonymName>The healthy and happy taxon</synonymName>
+			<commonName>The dude</commonName>
+			<description>
+				The taxon looks like good, with a lot of <term ref="happiness">happiness</term>
+			</description>
+			<image uri="https://github.com/Raphhh/ik/image.png">legend</image>
+		</taxon>
+		<taxon type="species" id="taxon_2" parent="family_1">
+			<!-- The choices path to this taxon is "unhappy" or "happy/tired" -->
+			<scientificName>The unhappy or tired taxon</scientificName>
+		</taxon>
+	</taxons>
+
+	<key name="happiness level">
+		<choice value="happy">
+			<question>Does it look like <term ref="happiness">happy</term>?</question>
+			<result>
+				<key name="health level">
+					<choice value="healthy">
+						<question>Does it look like healthy?</question>
+						<result>
+							<taxon ref="taxon_1"/>
+						</result>
+					</choice>
+					<choice value="tired">
+						<question>Does it look like tired?</question>
+						<result>
+							<taxon ref="taxon_2"/>
+						</result>
+					</choice>
+				</key>
+			</result>
+		</choice>
+		<choice value="unhappy">
+			<question>Does it look like <b>un</b>happy?</question>
+			<result>
+				<taxon ref="taxon_2"/>
+			</result>
+		</choice>
+	</key>
+</ik>
